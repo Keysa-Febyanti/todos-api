@@ -37,6 +37,15 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.get("/api/auth/me", protect, (req, res) => {
   res.status(200).json({
     status: "success",
