@@ -25,6 +25,15 @@ app.use(express.json());
 app.use(logger);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
 app.use("/api/categories", categoryRoutes);
@@ -35,15 +44,6 @@ app.get("/", (req, res) => {
   res.json({
     message: "Todos-List Management API is running!"
   });
-});
-
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    next(error);
-  }
 });
 
 app.get("/api/auth/me", protect, (req, res) => {
