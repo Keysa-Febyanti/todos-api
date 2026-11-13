@@ -1,0 +1,95 @@
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Keysa Test 2",
+  "email": "keysa.test2@example.com",
+  "password": "TesPassword123!"
+}
+
+###
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "keysa.test@example.com",
+  "password": "TesPassword123!"
+}
+
+###
+GET http://localhost:3000/api/auth/me
+
+###
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+###
+GET http://localhost:3000/api/test-admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+###
+POST http://localhost:3000/api/todos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+{
+  "title": "Todo untuk tes ownership",
+  "description": "Menguji kepemilikan Todo",
+  "status": "pending"
+}
+
+###
+
+GET http://localhost:3000/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+###
+PATCH http://localhost:3000/api/todos/6ade09f638b281181d351889
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+{
+  "title": "Todo pertama Keysa - Updated",
+  "status": "in progress"
+}
+
+###
+DELETE http://localhost:3000/api/todos/6ade09f638b281181d351889
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+### Test Ownership Check
+GET http://localhost:3000/api/todos/6ade09f638b281181d351889
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGUxMmI5OWY0NmY5NjZhOWRmMmQ5YSIsImlhdCI6MTc5MjkzODg3MywiZXhwIjoxNzkzMDI1MjczfQ.1gJr-yfBxDF082zDYfrGXTJDkd3KcC2OGpRWelnGNpU
+
+### Create Category
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+{
+  "name": "Belajar",
+  "description": "Kategori untuk tugas dan belajar"
+}
+
+### Get All Categories
+GET http://localhost:3000/api/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+### Get One Category
+GET http://localhost:3000/api/categories/6ade1ee270cdd2790adc6ce6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5MjkzNDY2OCwiZXhwIjoxNzkzMDIxMDY4fQ.yARsCJlFLd1PE7FcQap0rG2n8uBsErDHDNTHB0mSA8g
+
+### Update Category
+PATCH http://localhost:3000/api/categories/6ade1ee270cdd2790adc6ce6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5Mjk0Mjk0MSwiZXhwIjoxNzkzMDI5MzQxfQ.2KDnCPopEuUlPAYF9uiD3qhHbkuk_9-IZeZKrSJHCfo
+
+{
+  "name": "Belajar & Tugas",
+  "description": "Kategori untuk tugas sekolah dan kegiatan belajar"
+}
+
+### Delete Category
+DELETE http://localhost:3000/api/categories/6ade1ee270cdd2790adc6ce6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGRmYzgzYThlZjhmMjBmOTU2NGJhOSIsImlhdCI6MTc5Mjk0Mjk0MSwiZXhwIjoxNzkzMDI5MzQxfQ.2KDnCPopEuUlPAYF9uiD3qhHbkuk_9-IZeZKrSJHCfo

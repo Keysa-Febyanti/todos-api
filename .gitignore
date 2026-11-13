@@ -1,0 +1,16 @@
+# Dependensi
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# Pengecualian file contoh environment
+!.env.example
+
+# Hasil testing
+coverage/
+
+# Log
+*.log
+npm-debug.log*
