@@ -35,7 +35,13 @@ const options = {
       }
     }
   },
-  apis: [path.join(__dirname, "../routes/*.js")]
+  apis: [
+    path.resolve(__dirname, "../routes/authRoutes.js"),
+    path.resolve(__dirname, "../routes/todoRoutes.js"),
+    path.resolve(__dirname, "../routes/categoryRoutes.js"),
+    path.resolve(__dirname, "../routes/activityLogRoutes.js"),
+    path.resolve(__dirname, "../routes/statsRoutes.js")
+  ]
 };
 
 const swaggerSpec = swaggerJsdoc(options);
