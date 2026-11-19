@@ -19,7 +19,8 @@ const connectDB = async () => {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGODB_URI)
+    cached.promise = mongoose
+      .connect(process.env.MONGODB_URI)
       .then((mongoose) => mongoose)
       .catch((error) => {
         cached.promise = null;

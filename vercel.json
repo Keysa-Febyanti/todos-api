@@ -8,5 +8,11 @@
         "includeFiles": ["routes/**"]
       }
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
   ]
 }

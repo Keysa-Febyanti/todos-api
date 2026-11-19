@@ -11,7 +11,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   name: Authentication
+ *   name: Auth
  *   description: User registration and login
  */
 
@@ -20,7 +20,7 @@ const router = express.Router();
  * /api/auth/register:
  *   post:
  *     summary: Register a new user
- *     tags: [Authentication]
+ *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:
@@ -60,7 +60,7 @@ router.post(
  * /api/auth/login:
  *   post:
  *     summary: Login user
- *     tags: [Authentication]
+ *     tags: [Auth]
  *     requestBody:
  *       required: true
  *       content:

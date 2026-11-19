@@ -51,9 +51,9 @@ const swaggerSpec = {
                 type: "object",
                 required: ["name", "email", "password"],
                 properties: {
-                  name: { type: "string", example: "Keysa" },
+                  name: { type: "string", example: "Keysa Febyanti" },
                   email: { type: "string", example: "keysa@example.com" },
-                  password: { type: "string", example: "Password123!" }
+                  password: { type: "string", example: "Password123" }
                 }
               }
             }
@@ -79,7 +79,7 @@ const swaggerSpec = {
                 required: ["email", "password"],
                 properties: {
                   email: { type: "string", example: "keysa@example.com" },
-                  password: { type: "string", example: "Password123!" }
+                  password: { type: "string", example: "Password123" }
                 }
               }
             }
@@ -202,7 +202,8 @@ const swaggerSpec = {
                 type: "object",
                 required: ["name"],
                 properties: {
-                  name: { type: "string", example: "Work" }
+                  name: { type: "string", example: "Belajar" },
+                  description: { type: "string", example: "Kategori untuk kegiatan belajar" }
                 }
               }
             }
@@ -210,6 +211,54 @@ const swaggerSpec = {
         },
         responses: {
           201: { description: "Category created" }
+        }
+      }
+    },
+    "/api/categories/{id}": {
+      get: {
+        tags: ["Categories"],
+        summary: "Get one category by ID",
+        parameters: [
+          { name: "id", in: "path", required: true, schema: { type: "string" } }
+        ],
+        responses: {
+          200: { description: "Category retrieved successfully" },
+          404: { description: "Category not found" }
+        }
+      },
+      patch: {
+        tags: ["Categories"],
+        summary: "Update a category by ID",
+        parameters: [
+          { name: "id", in: "path", required: true, schema: { type: "string" } }
+        ],
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  name: { type: "string", example: "Belajar dan Tugas" },
+                  description: { type: "string", example: "Kategori untuk tugas sekolah" }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          200: { description: "Category updated successfully" },
+          404: { description: "Category not found" }
+        }
+      },
+      delete: {
+        tags: ["Categories"],
+        summary: "Delete a category by ID",
+        parameters: [
+          { name: "id", in: "path", required: true, schema: { type: "string" } }
+        ],
+        responses: {
+          204: { description: "Category deleted successfully" },
+          404: { description: "Category not found" }
         }
       }
     },
