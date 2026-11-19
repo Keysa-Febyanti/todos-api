@@ -2,6 +2,13 @@
 
 Todos List Management API adalah RESTful API yang dikembangkan menggunakan Node.js, Express.js, dan MongoDB untuk mengelola daftar tugas pengguna. Project ini menyediakan fitur autentikasi pengguna, pengelolaan tugas dan kategori, pencatatan aktivitas, serta statistik.
 
+## Live Demo & Dokumentasi
+
+- **Production Base URL:** `https://todos-api-jet.vercel.app`
+- **Local Base URL:** `http://localhost:3000`
+- **Swagger UI (Production):** `https://todos-api-jet.vercel.app/api-docs`
+- **Swagger UI (Local):** `http://localhost:3000/api-docs`
+
 ## Fitur Utama
 
 - Registrasi dan login pengguna menggunakan JWT.
@@ -37,12 +44,14 @@ Todos List Management API adalah RESTful API yang dikembangkan menggunakan Node.
 - Jest
 - Supertest
 
-**Development Tools:**
+**Development & Deployment Tools:**
 - Nodemon
 - npm
+- Vercel
 
 ## Struktur Folder
 
+```text
 todos-api/
 ├── config/
 ├── controllers/
@@ -59,7 +68,9 @@ todos-api/
 ├── package-lock.json
 ├── package.json
 ├── README.md
-└── test-api.http
+├── test-api.http
+└── vercel.json
+```
 
 ## Persyaratan
 
@@ -111,17 +122,18 @@ Atau jalankan dalam mode biasa:
 npm start
 ```
 
-Server berjalan pada:
+Server lokal berjalan pada:
 
-http://localhost:3000
+`http://localhost:3000`
 
 ## Dokumentasi API
 
-Dokumentasi API tersedia melalui 
-Swagger UI. Setelah server dijalankan,
-buka alamat berikut pada browser:
+Dokumentasi API tersedia melalui Swagger UI. Setelah server dijalankan, buka alamat berikut pada browser:
 
-http://localhost:3000/api-docs
+- Lokal: `http://localhost:3000/api-docs`
+- Produksi: `https://todos-api-jet.vercel.app/api-docs`
+
+Referensi tambahan endpoint dan skema data juga tersedia pada `api-endpoints.md` dan `database-fields.md`.
 
 ## Automated Testing
 
@@ -132,6 +144,10 @@ npm test
 ```
 
 Pengujian menggunakan Jest dan Supertest.
+
+## Deployment
+
+Project ini dapat di-deploy ke Vercel menggunakan `index.js` sebagai *entry point* dan `vercel.json` untuk pengaturan *rewrites*. Pastikan seluruh *environment variables* (`MONGODB_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `API_KEY`) juga sudah ditambahkan di pengaturan *Environment Variables* pada dashboard Vercel.
 
 ## Author
 

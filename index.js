@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(logger);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Middleware koneksi database untuk serverless / lokal
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -82,7 +83,7 @@ app.get(
 app.use(notFound);
 app.use(errorHandler);
 
-// Menjalankan server setelah database terhubung
+// Menjalankan server setelah database terhubung (untuk lokal)
 const startServer = async () => {
   await connectDB();
 
@@ -91,7 +92,7 @@ const startServer = async () => {
   });
 };
 
-// Menjalankan server hanya ketika file ini dijalankan langsung
+// Menjalankan server hanya ketika file ini dijalankan langsung (node index.js)
 if (require.main === module) {
   startServer();
 }
