@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const swaggerSpec = require("./config/swagger");
 const connectDB = require("./config/db");
 
 const logger = require("./middleware/logger");
@@ -23,12 +22,19 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(logger);
 
-// Spesifikasi OpenAPI dalam bentuk JSON
 app.get("/api-docs.json", (req, res) => {
-  res.status(200).json(swaggerSpec);
+  try {
+    const swaggerSpec = require("./config/swagger");
+    res.status(200).json(swaggerSpec);
+  } catch (err) {
+    res.status(500).json({
+      status: "fail",
+      message: "Gagal memuat spesifikasi Swagger",
+      error: err.message
+    });
+  }
 });
 
-// Swagger UI dirender langsung dari CDN agar aman di Vercel serverless
 app.get("/api-docs", (req, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.send(`<!DOCTYPE html>
@@ -63,7 +69,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Middleware koneksi database untuk endpoint API
 app.use(async (req, res, next) => {
   try {
     await connectDB();
