@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 const connectDB = require("./config/db");
 
@@ -21,30 +20,50 @@ const statsRoutes = require("./routes/statsRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css";
-
 app.use(express.json());
 app.use(logger);
 
-// Endpoint JSON mentah untuk spesifikasi OpenAPI / Swagger
+// Spesifikasi OpenAPI dalam bentuk JSON
 app.get("/api-docs.json", (req, res) => {
   res.status(200).json(swaggerSpec);
 });
 
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, {
-    customCssUrl: CSS_URL,
-    customJs: [
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js"
-    ]
-  })
-);
+// Swagger UI dirender langsung dari CDN agar aman di Vercel serverless
+app.get("/api-docs", (req, res) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todos-List Management API - Swagger UI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css" />
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js"></script>
+  <script>
+    window.onload = () => {
+      SwaggerUIBundle({
+        url: "/api-docs.json",
+        dom_id: "#swagger-ui",
+        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+        layout: "StandaloneLayout"
+      });
+    };
+  </script>
+</body>
+</html>`);
+});
 
-// Middleware koneksi database untuk serverless / lokal
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Todos-List Management API is running!"
+  });
+});
+
+// Middleware koneksi database untuk endpoint API
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -74,12 +93,6 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/activity-logs", activityLogRoutes);
 app.use("/api/stats", statsRoutes);
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Todos-List Management API is running!"
-  });
-});
-
 app.get(
   "/api/test-admin",
   protect,
@@ -102,7 +115,6 @@ app.get(
 app.use(notFound);
 app.use(errorHandler);
 
-// Menjalankan server setelah database terhubung (untuk lokal)
 const startServer = async () => {
   await connectDB();
 
@@ -111,7 +123,6 @@ const startServer = async () => {
   });
 };
 
-// Menjalankan server hanya ketika file ini dijalankan langsung (node index.js)
 if (require.main === module) {
   startServer();
 }
