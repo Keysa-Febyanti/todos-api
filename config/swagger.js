@@ -1,3 +1,4 @@
+const path = require("path");
 const swaggerJsdoc = require("swagger-jsdoc");
 
 const options = {
@@ -10,6 +11,10 @@ const options = {
         "API documentation for Todos-List Management application"
     },
     servers: [
+      {
+        url: "https://todos-api-jet.vercel.app",
+        description: "Production Server (Vercel)"
+      },
       {
         url: "http://localhost:3000",
         description: "Local Development Server"
@@ -30,7 +35,7 @@ const options = {
       }
     }
   },
-  apis: ["./routes/*.js"]
+  apis: [path.join(__dirname, "../routes/*.js")]
 };
 
 const swaggerSpec = swaggerJsdoc(options);

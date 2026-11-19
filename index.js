@@ -21,9 +21,22 @@ const statsRoutes = require("./routes/statsRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css";
+
 app.use(express.json());
 app.use(logger);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    customCssUrl: CSS_URL,
+    customJs: [
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js"
+    ]
+  })
+);
 
 // Middleware koneksi database untuk serverless / lokal
 app.use(async (req, res, next) => {
