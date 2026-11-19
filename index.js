@@ -26,6 +26,12 @@ const CSS_URL =
 
 app.use(express.json());
 app.use(logger);
+
+// Endpoint JSON mentah untuk spesifikasi OpenAPI / Swagger
+app.get("/api-docs.json", (req, res) => {
+  res.status(200).json(swaggerSpec);
+});
+
 app.use(
   "/api-docs",
   swaggerUi.serve,
@@ -48,18 +54,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/todos", todoRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/activity-logs", activityLogRoutes);
-app.use("/api/stats", statsRoutes);
-
-app.get("/", (req, res) => {
-  res.json({
-    message: "Todos-List Management API is running!"
-  });
-});
-
 app.get("/api/auth/me", protect, (req, res) => {
   res.status(200).json({
     status: "success",
@@ -71,6 +65,18 @@ app.get("/api/auth/me", protect, (req, res) => {
         role: req.user.role
       }
     }
+  });
+});
+
+app.use("/api/auth", authRoutes);
+app.use("/api/todos", todoRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/activity-logs", activityLogRoutes);
+app.use("/api/stats", statsRoutes);
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "Todos-List Management API is running!"
   });
 });
 
